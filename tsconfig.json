@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "composite": true,
-
     "target": "ES2016",
     "module": "commonjs",
-    
+    "declaration": false,
+
     "esModuleInterop": true,
 
     "forceConsistentCasingInFileNames": true,
