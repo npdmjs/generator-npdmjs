@@ -2,7 +2,8 @@
   "name": "generator-npdmjs",
   "version": "0.0.1",
   "scripts": {
-    "build": "tsc"
+    "prepare": "husky install",
+    "build": "tsc --project tsconfig.json"
   },
   "files": [
     "generators"
@@ -11,7 +12,12 @@
     "yeoman-generator"
   ],
   "dependencies": {
+    "@commitlint/cli": "^19.2.0",
+    "@commitlint/config-conventional": "^19.1.0",
     "@metagen/yeoman-generator": "1.0.2",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^9.0.11",
     "simple-git": "3.23.0",
     "yeoman-generator": "^7.1.1"
   }
