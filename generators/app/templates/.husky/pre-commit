@@ -5,7 +5,7 @@ echo "Running tests..."
 bun run test
 
 echo "Running eslint..."
-bun lint
+bun run lint
 
 echo "Running build..."
 bun run build

@@ -1,1 +1,1 @@
-// entry point
+console.log('it is alive!');

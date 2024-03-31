@@ -15,6 +15,7 @@ export default class extends Generator<PackageOptions> {
   constructor(args: string[], opts: PackageOptions) {
     super(args, opts);
     this.argument('packageName', { type: String, required: true });
+    this.options.skipInstall = opts.skipInstall ?? true;
   }
 
   async initializing() {
@@ -82,10 +83,8 @@ export default class extends Generator<PackageOptions> {
   }
 
   install() {
-    // TODO: make sure it works
-    this.spawnCommandSync('bun install', {
-      cwd: process.cwd(),
-    });
+    const runSync = (this.spawnSync ?? this.spawnCommandSync).bind(this);
+    runSync('bun', ['install']);
   }
 
   end() {
