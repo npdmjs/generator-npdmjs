@@ -1,6 +1,6 @@
 {
   "name": "generator-npdmjs",
-  "version": "0.0.1-beta.21",
+  "version": "1.0.0",
   "scripts": {
     "prepare": "husky install",
     "build": "tsc --project tsconfig.json"
