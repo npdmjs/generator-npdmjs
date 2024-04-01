@@ -1,6 +1,7 @@
 import { Generator } from '@metagen/yeoman-generator';
 import { simpleGit } from 'simple-git';
 import type { BaseOptions } from 'yeoman-generator';
+import { convertGitOriginToUrl } from './convertGitOriginToUrl.js';
 
 type PackageOptions = BaseOptions & {
   packageName: string; // @npdmjs/core
@@ -20,40 +21,30 @@ export default class extends Generator<PackageOptions> {
 
   async initializing() {
     try {
-      const gitConfig = await simpleGit().getConfig('remote.origin.url');
-      this.options.repositoryUrl = gitConfig.value ?? '';
+      const { value } = await simpleGit().getConfig('remote.origin.url');
+      if (!value) {
+        throw new Error('No remote origin URL found');
+      }
+      this.options.repositoryUrl = value;
+      const baseRepoUrl = convertGitOriginToUrl(this.options.repositoryUrl);
+      this.options.repositoryUrl = `${baseRepoUrl}.git`;
+      this.options.homepage = `${baseRepoUrl}#readme`;
+      this.options.bugsUrl = `${baseRepoUrl}/issues`;
     } catch (e) {
-      console.error(e);
+      console.error((e as Error).message);
       process.exit();
     }
   }
 
   async prompting() {
-    const { baseRepoUrl } = await this.prompt([{
-      type: 'input',
-      name: 'baseRepoUrl',
-      message: 'Base repository URL',
-      store: true,
-      default: 'https://github.com/npdmjs/generator-npdmjs'
-    }]);
-  
     const answers = await this.prompt([
       {
-        type: 'input',
-        name: 'homepage',
-        message: 'Homepage',
-        default: `${baseRepoUrl}#readme`
-      }, {
-        type: 'input',
-        name: 'bugsUrl',
-        message: 'Bug reporting URL',
-        default: `${baseRepoUrl}/issues`
-      }, {
         type: 'input',
         name: 'author',
         store: true,
         message: 'Author',
-      }, {
+      },
+      {
         type: 'input',
         name: 'license',
         store: true,
@@ -61,8 +52,6 @@ export default class extends Generator<PackageOptions> {
         message: 'License',
       }
     ]);
-    this.options.homepage = answers.homepage;
-    this.options.bugsUrl = answers.bugsUrl;
     this.options.author = answers.author;
     this.options.license = answers.license;
   }

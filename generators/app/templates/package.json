@@ -5,7 +5,6 @@
   "license": "{{license}}",
 
   "type": "module",
-  "module": "index.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "types": "dist/cjs/index.d.ts",
