@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/npdmjs/generator-npdmjs/compare/v1.0.0...v1.0.1) (2024-04-17)
+
+
+### Bug Fixes
+
+* **app:** add eslint-plugin-require-extensions dependency ([78aa479](https://github.com/npdmjs/generator-npdmjs/commit/78aa4792113a87dbade58e79fcaf705b76bfaece))
+
 ## 1.0.0 (2024-04-01)
 
 
